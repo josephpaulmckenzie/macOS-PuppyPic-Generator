@@ -37,36 +37,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func fetchTeeceePic() {
         print("Fetching Random Teecee Pic")
         
-//        let paths = ["/Users/josephmckenzie/Downloads/IMG_20190514_131744.jpg"]
-//        let fileURLs = paths.map{ NSURL(fileURLWithPath: $0)}
-//        NSWorkspace.shared.activateFileViewerSelecting(fileURLs as [URL])
-        // works for just opening photos app
         func openPhotos(photoToOpen: String) {
             NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
         }
-
-        openPhotos(photoToOpen: "/Users/josephmckenzie/Downloads/IMG_20190514_131744.jpg")
         
-        let myArray = ["/Users/josephmckenzie/Downloads/IMG_20190514_131744.jpg"]
-        let myItem = myArray.randomElement()
-        print(myItem!)
-            // Prints contents of  text file to terminal
-//            if let url = URL(string: "https://www.w3.org/TR/PNG/iso_8859-1.txt") {
-//                do {
-//                    let contents = try String(contentsOf: url)
-//                    print(contents)
-//                    let contentarr = contents.components(separatedBy: ";")
-//                    print(contentarr)
-//                } catch {
-//                    print("Some error happened")
-//                }
-//            } else {
-//
-//                print("Wrong URL")
-//
-//            }
-//
-//    }
+        do {
+            let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/josephmckenzie/Pictures/Teecee/")
+            let myItem = files.randomElement()
+                    openPhotos(photoToOpen: "/Users/josephmckenzie/Pictures/Teecee/" +  myItem!)
+            print(files)
+        } catch {
+            print(error)
+        }
     }
     
     @objc func fetchCoderPic() {
