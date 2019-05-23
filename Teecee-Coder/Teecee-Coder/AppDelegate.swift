@@ -36,6 +36,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             withTitle: "Fetch Teece and Coder Together",
             action: #selector(AppDelegate.fetchTeeceeNCoderPic),
             keyEquivalent: "")
+        
+        statusBarMenu.addItem(
+            withTitle: "Quit",
+            action: #selector(AppDelegate.ExitNow),
+            keyEquivalent: "")
     }
     
     
@@ -90,6 +95,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print(error)
         }
         
+    }
+    
+    
+    @IBAction func ExitNow(sender: AnyObject) {
+        NSApplication.shared.terminate(self)
     }
 }
 
