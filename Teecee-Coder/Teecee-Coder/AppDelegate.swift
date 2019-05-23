@@ -31,6 +31,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             withTitle: "Fetch Coder Pic",
             action: #selector(AppDelegate.fetchCoderPic),
             keyEquivalent: "")
+        
+        statusBarMenu.addItem(
+            withTitle: "Fetch Teece and Coder Together",
+            action: #selector(AppDelegate.fetchTeeceeNCoderPic),
+            keyEquivalent: "")
     }
     
     
@@ -67,6 +72,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print(error)
         }
 
+    }
+    
+    @objc func fetchTeeceeNCoderPic() {
+        print("Fetching Random Coder Pic")
+        
+        func openPhotos(photoToOpen: String) {
+            NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
+        }
+        
+        do {
+            let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/josephmckenzie/Pictures/Teecee-Coder/")
+            let myItem = files.randomElement()
+            openPhotos(photoToOpen: "/Users/josephmckenzie/Pictures/Teecee-Coder/" +  myItem!)
+            print(files)
+        } catch {
+            print(error)
+        }
+        
     }
 }
 
