@@ -53,6 +53,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func fetchCoderPic() {
         print("Fetching Random Coder Pic")
+        
+        func openPhotos(photoToOpen: String) {
+            NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
+        }
+        
+        do {
+            let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/josephmckenzie/Pictures/Coder/")
+            let myItem = files.randomElement()
+            openPhotos(photoToOpen: "/Users/josephmckenzie/Pictures/Coder/" +  myItem!)
+            print(files)
+        } catch {
+            print(error)
+        }
+
     }
 }
 
