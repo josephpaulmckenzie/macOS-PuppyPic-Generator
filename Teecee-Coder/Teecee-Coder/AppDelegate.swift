@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         statusBarMenu.addItem(
             withTitle: "Fetch Coder Pic",
-            action: #selector(AppDelegate.fetchTeeceePic),
+            action: #selector(AppDelegate.fetchCoderPic),
             keyEquivalent: "")
         
         statusBarMenu.addItem(
@@ -50,7 +50,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc func fetchTeeceePic() {
         // print("Fetching Random Teecee Pic")
         
-        let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev")
+        let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/teecee-pic")
         if let usableUrl = url {
             let request = URLRequest(url: usableUrl)
             let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
@@ -76,7 +76,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 else { return }
             DispatchQueue.main.async() { () -> Void in
                 let fileManager = FileManager.default
-                let myFilePathString = "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/puppy.jpg"
+                let myFilePathString = "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/teecee.jpg"
                 fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
                 
                 var username = NSUserName()
@@ -86,33 +86,110 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
                 
                 do {
-                    openPhotos(photoToOpen: "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/puppy.jpg")
+                    openPhotos(photoToOpen: "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/teecee.jpg")
                 } catch {
                     print(error)
                 }
                 
             }}.resume()
-    }    
+    }
 }
 
-@objc func fetchTeeceeNCoderPic() {
-    // print("Fetching Random Coder Pic")
-    
-    func openPhotos(photoToOpen: String) {
-        NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
+    @objc func fetchCoderPic() {
+        // print("Fetching Random Teecee Pic")
+        
+        let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/coder-pic")
+        if let usableUrl = url {
+            let request = URLRequest(url: usableUrl)
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+                if let data = data {
+                    if let stringData = String(data: data, encoding: .utf8) {
+                        //                        print(stringData.components(separatedBy: ",").randomElement()!)
+                        let phototoget = stringData.components(separatedBy: ",").randomElement()
+                        getPhotos(photoToOpen: phototoget!  )
+                    }
+                }
+            })
+            task.resume()
+        }
+        func getPhotos(photoToOpen: String) {
+            
+            let photoToOpen = photoToOpen.replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "[", with: "")
+            let url2 = URL(string: photoToOpen)
+            print(url2)
+            URLSession.shared.dataTask(with: url2!) { (data, response, error) in
+                guard
+                    let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                    let data = data, error == nil
+                    else { return }
+                DispatchQueue.main.async() { () -> Void in
+                    let fileManager = FileManager.default
+                    let myFilePathString = "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/coder.jpg"
+                    fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
+                    
+                    var username = NSUserName()
+                    // print(username)
+                    func openPhotos(photoToOpen: String) {
+                        NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
+                    }
+                    
+                    do {
+                        openPhotos(photoToOpen: "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/coder.jpg")
+                    } catch {
+                        print(error)
+                    }
+                    
+                }}.resume()
+        }
     }
     
-    do {
-        let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/josephmckenzie/Pictures/Teecee-Coder/")
-        let myItem = files.randomElement()
-        openPhotos(photoToOpen: "/Users/josephmckenzie/Pictures/Teecee-Coder/" +  myItem!)
-        // print(files)
-    } catch {
-        print(error)
+    @objc func fetchTeeceeNCoderPic() {
+        // print("Fetching Random Teecee Pic")
+        
+        let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/teecee-coder-pic")
+        if let usableUrl = url {
+            let request = URLRequest(url: usableUrl)
+            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+                if let data = data {
+                    if let stringData = String(data: data, encoding: .utf8) {
+                        //                        print(stringData.components(separatedBy: ",").randomElement()!)
+                        let phototoget = stringData.components(separatedBy: ",").randomElement()
+                        getPhotos(photoToOpen: phototoget!  )
+                    }
+                }
+            })
+            task.resume()
+        }
+        func getPhotos(photoToOpen: String) {
+            
+            let photoToOpen = photoToOpen.replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "[", with: "")
+            let url2 = URL(string: photoToOpen)
+            print(url2)
+            URLSession.shared.dataTask(with: url2!) { (data, response, error) in
+                guard
+                    let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
+                    let data = data, error == nil
+                    else { return }
+                DispatchQueue.main.async() { () -> Void in
+                    let fileManager = FileManager.default
+                    let myFilePathString = "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/teecee-coder.jpg"
+                    fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
+                    
+                    var username = NSUserName()
+                    // print(username)
+                    func openPhotos(photoToOpen: String) {
+                        NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
+                    }
+                    
+                    do {
+                        openPhotos(photoToOpen: "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/teecee-coder.jpg")
+                    } catch {
+                        print(error)
+                    }
+                    
+                }}.resume()
+        }
     }
-    
-}
-
 
 @IBAction func ExitNow(sender: AnyObject) {
     NSApplication.shared.terminate(self)
