@@ -49,6 +49,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func fetchTeeceePic() {
         // print("Fetching Random Teecee Pic")
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
+            isDirectory: true)
         
         let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/teecee-pic")
         if let usableUrl = url {
@@ -58,17 +60,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     if let stringData = String(data: data, encoding: .utf8) {
 //                        print(stringData.components(separatedBy: ",").randomElement()!)
                         let phototoget = stringData.components(separatedBy: ",").randomElement()
-                        getPhotos(photoToOpen: phototoget!  )
+                        getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
                     }
                 }
             })
             task.resume()
         }
-        func getPhotos(photoToOpen: String) {
-            
+        func getPhotos(photoToOpen: String,tempurl: URL) {
+           let stringofurl = tempurl.absoluteString.replacingOccurrences(of: "file:", with: "")
+            print(stringofurl)
         let photoToOpen = photoToOpen.replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "[", with: "")
         let url2 = URL(string: photoToOpen)
-            print(url2)
         URLSession.shared.dataTask(with: url2!) { (data, response, error) in
             guard
                 let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
@@ -76,7 +78,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 else { return }
             DispatchQueue.main.async() { () -> Void in
                 let fileManager = FileManager.default
-                let myFilePathString = "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/teecee.jpg"
+                let myFilePathString = stringofurl + "teecee.jpg"
                 fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
                 
                 var username = NSUserName()
@@ -86,7 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
                 
                 do {
-                    openPhotos(photoToOpen: "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/teecee.jpg")
+                    openPhotos(photoToOpen: stringofurl + "teecee.jpg")
                 } catch {
                     print(error)
                 }
@@ -97,7 +99,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func fetchCoderPic() {
         // print("Fetching Random Teecee Pic")
-        
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
+                                        isDirectory: true)
         let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/coder-pic")
         if let usableUrl = url {
             let request = URLRequest(url: usableUrl)
@@ -106,17 +109,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     if let stringData = String(data: data, encoding: .utf8) {
                         //                        print(stringData.components(separatedBy: ",").randomElement()!)
                         let phototoget = stringData.components(separatedBy: ",").randomElement()
-                        getPhotos(photoToOpen: phototoget!  )
+                         getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
                     }
                 }
             })
             task.resume()
         }
-        func getPhotos(photoToOpen: String) {
-            
+        func getPhotos(photoToOpen: String,tempurl: URL) {
+            let stringofurl = tempurl.absoluteString.replacingOccurrences(of: "file:", with: "")
+
             let photoToOpen = photoToOpen.replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "[", with: "")
             let url2 = URL(string: photoToOpen)
-            print(url2)
+            print(url2!)
             URLSession.shared.dataTask(with: url2!) { (data, response, error) in
                 guard
                     let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
@@ -124,7 +128,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     else { return }
                 DispatchQueue.main.async() { () -> Void in
                     let fileManager = FileManager.default
-                    let myFilePathString = "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/coder.jpg"
+                    let myFilePathString = stringofurl + "coder"
                     fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
                     
                     var username = NSUserName()
@@ -134,7 +138,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     }
                     
                     do {
-                        openPhotos(photoToOpen: "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/coder.jpg")
+                        openPhotos(photoToOpen: stringofurl + "coder")
                     } catch {
                         print(error)
                     }
@@ -145,7 +149,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc func fetchTeeceeNCoderPic() {
         // print("Fetching Random Teecee Pic")
-        
+        let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
+                                        isDirectory: true)
         let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/teecee-coder-pic")
         if let usableUrl = url {
             let request = URLRequest(url: usableUrl)
@@ -154,17 +159,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     if let stringData = String(data: data, encoding: .utf8) {
                         //                        print(stringData.components(separatedBy: ",").randomElement()!)
                         let phototoget = stringData.components(separatedBy: ",").randomElement()
-                        getPhotos(photoToOpen: phototoget!  )
+                       getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
                     }
                 }
             })
             task.resume()
         }
-        func getPhotos(photoToOpen: String) {
-            
+        func getPhotos(photoToOpen: String, tempurl: URL) {
+            let stringofurl = tempurl.absoluteString.replacingOccurrences(of: "file:", with: "")
             let photoToOpen = photoToOpen.replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "[", with: "")
             let url2 = URL(string: photoToOpen)
-            print(url2)
+            print(url2!)
             URLSession.shared.dataTask(with: url2!) { (data, response, error) in
                 guard
                     let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
@@ -172,7 +177,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     else { return }
                 DispatchQueue.main.async() { () -> Void in
                     let fileManager = FileManager.default
-                    let myFilePathString = "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/teecee-coder.jpg"
+                    let myFilePathString = stringofurl + "teecee-coder.jpg"
                     fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
                     
                     var username = NSUserName()
@@ -182,7 +187,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     }
                     
                     do {
-                        openPhotos(photoToOpen: "///var/folders/hm/jrwkwy1j45l32j9zywph34zr0000gn/T/TemporaryItems/teecee-coder.jpg")
+                        openPhotos(photoToOpen: stringofurl + "teecee-coder.jpg")
                     } catch {
                         print(error)
                     }
