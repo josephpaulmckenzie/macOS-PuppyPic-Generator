@@ -16,7 +16,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBarItem: NSStatusItem!
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+        }else{
+            print("Internet Connection not Available!")
+        }
         let statusBar = NSStatusBar.system
         statusBarItem = statusBar.statusItem(
             withLength: NSStatusItem.squareLength)
@@ -46,7 +50,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             keyEquivalent: "")
     }
     
-    
     @objc func fetchTeeceePic() {
         // print("Fetching Random Teecee Pic")
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
@@ -58,7 +61,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
                 if let data = data {
                     if let stringData = String(data: data, encoding: .utf8) {
-//                        print(stringData.components(separatedBy: ",").randomElement()!)
                         let phototoget = stringData.components(separatedBy: ",").randomElement()
                         getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
                     }
@@ -81,7 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let myFilePathString = stringofurl + "teecee.jpg"
                 fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
                 
-                var username = NSUserName()
+                // var username = NSUserName()
                 // print(username)
                 func openPhotos(photoToOpen: String) {
                     NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
@@ -107,7 +109,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
                 if let data = data {
                     if let stringData = String(data: data, encoding: .utf8) {
-                        //                        print(stringData.components(separatedBy: ",").randomElement()!)
                         let phototoget = stringData.components(separatedBy: ",").randomElement()
                          getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
                     }
@@ -120,7 +121,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
             let photoToOpen = photoToOpen.replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "[", with: "")
             let url2 = URL(string: photoToOpen)
-            print(url2!)
             URLSession.shared.dataTask(with: url2!) { (data, response, error) in
                 guard
                     let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,

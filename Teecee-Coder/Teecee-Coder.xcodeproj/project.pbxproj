@@ -16,6 +16,7 @@
 		D5CDD97D22950B05004D21FB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5CDD97B22950B05004D21FB /* Main.storyboard */; };
 		D5CDD98922950B05004D21FB /* Teecee_CoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CDD98822950B05004D21FB /* Teecee_CoderTests.swift */; };
 		D5CDD99422950B05004D21FB /* Teecee_CoderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CDD99322950B05004D21FB /* Teecee_CoderUITests.swift */; };
+		D5FF014D229B7738004FFCB9 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5FF014C229B7738004FFCB9 /* Reachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		D5CDD99322950B05004D21FB /* Teecee_CoderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teecee_CoderUITests.swift; sourceTree = "<group>"; };
 		D5CDD99522950B05004D21FB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5CDD9A12295E361004D21FB /* Teecee-Coder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Teecee-Coder.entitlements"; sourceTree = "<group>"; };
+		D5FF014C229B7738004FFCB9 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		E0FA6E3FE01B1A33A9E9531D /* Pods_Teecee_CoderUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Teecee_CoderUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F76DBF5C38BBF295C97C6F62 /* Pods_Teecee_Coder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Teecee_Coder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDC0B8E2C306BAD99BD52992 /* Pods-Teecee-Coder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Teecee-Coder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Teecee-Coder/Pods-Teecee-Coder.release.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				D5CDD97B22950B05004D21FB /* Main.storyboard */,
 				D5CDD97E22950B05004D21FB /* Info.plist */,
 				D5CDD97F22950B05004D21FB /* Teecee_Coder.entitlements */,
+				D5FF014C229B7738004FFCB9 /* Reachability.swift */,
 			);
 			path = "Teecee-Coder";
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 			files = (
 				D5CDD97822950B03004D21FB /* ViewController.swift in Sources */,
 				D5CDD97622950B03004D21FB /* AppDelegate.swift in Sources */,
+				D5FF014D229B7738004FFCB9 /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
