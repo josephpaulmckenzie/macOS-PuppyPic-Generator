@@ -53,8 +53,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             keyEquivalent: "")
     }
     
-    @objc func fetchTeeceePic() {
-        // print("Fetching Random Teecee Pic")
+    @objc func fetchTeeceePic(_ sender: NSMenuItem) {
+        print( sender.title)
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
             isDirectory: true)
   
@@ -77,16 +77,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }else{
             print("Internet Connection not Available!")
             // Here is we want to pull from our Pictures folder so that we can still show images even if offline
-                        let username = NSUserName()
-                        // print(username)
-                        do {
-                            let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/Teecee/")
-                            let myItem = files.randomElement()
-                                openPhotos(photoToOpen: "/Users/\(username)/Pictures/Teecee/" +  myItem!)
-                            print(files)
-                        } catch {
-                            print(error)
-                        }
+            let username = NSUserName()
+            // print(username)
+            do {
+                let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/Teecee/")
+                let myItem = files.randomElement()
+                    openPhotos(photoToOpen: "/Users/\(username)/Pictures/Teecee/" +  myItem!)
+                print(files)
+            } catch {
+                print(error)
+            }
         }
         
         func getPhotos(photoToOpen: String,tempurl: URL) {
@@ -108,8 +108,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 }
 
-    @objc func fetchCoderPic() {
+    @objc func fetchCoderPic(_ sender: NSMenuItem) {
         // print("Fetching Random Teecee Pic")
+        print( sender.title)
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                         isDirectory: true)
         
@@ -163,7 +164,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    @objc func fetchTeeceeNCoderPic() {
+    @objc func fetchTeeceeNCoderPic(_ sender: NSMenuItem) {
+        print(sender.title)
         // print("Fetching Random Teecee Pic")
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                         isDirectory: true)
