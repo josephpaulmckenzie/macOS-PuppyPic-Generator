@@ -82,15 +82,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         do {
                             let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/Teecee/")
                             let myItem = files.randomElement()
-                            func openPhotos(photoToOpen: String) {
-                                NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
-                            }
-                            
-                            do {
                                 openPhotos(photoToOpen: "/Users/\(username)/Pictures/Teecee/" +  myItem!)
-                            } catch {
-                                print(error)
-                            }
                             print(files)
                         } catch {
                             print(error)
@@ -111,19 +103,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 let fileManager = FileManager.default
                 let myFilePathString = stringofurl + "teecee.jpg"
                 fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
-                
-                // var username = NSUserName()
-                // print(username)
-                func openPhotos(photoToOpen: String) {
-                    NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
-                }
-                
-                do {
-                    openPhotos(photoToOpen: stringofurl + "teecee.jpg")
-                } catch {
-                    print(error)
-                }
-                
+                self.openPhotos(photoToOpen: stringofurl + "teecee.jpg")
             }}.resume()
     }
 }
@@ -157,15 +137,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             do {
                 let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/Coder/")
                 let myItem = files.randomElement()
-                func openPhotos(photoToOpen: String) {
-                    NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
-                }
-                
-                do {
                     openPhotos(photoToOpen: "/Users/\(username)/Pictures/Coder/" +  myItem!)
-                } catch {
-                    print(error)
-                }
                 print(files)
             } catch {
                 print(error)
@@ -186,19 +158,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     let fileManager = FileManager.default
                     let myFilePathString = stringofurl + "coder.jpg"
                     fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
-                    
-                    // var username = NSUserName()
-                    // print(username)
-                    func openPhotos(photoToOpen: String) {
-                        NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
-                    }
-                    
-                    do {
-                        openPhotos(photoToOpen: stringofurl + "coder.jpg")
-                    } catch {
-                        print(error)
-                    }
-                    
+                    self.openPhotos(photoToOpen: stringofurl + "coder.jpg")
                 }}.resume()
         }
     }
@@ -228,20 +188,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             print("Internet Connection not Available!")
             // Here is we want to pull from our Pictures folder so that we can still show images even if offline
             let username = NSUserName()
-            // print(username)
             do {
                 let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/teecee-coder/")
                 let myItem = files.randomElement()
-                func openPhotos(photoToOpen: String) {
-                    NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
-                }
-                
-                do {
                     openPhotos(photoToOpen: "/Users/\(username)/Pictures/teecee-coder/" +  myItem!)
-                } catch {
-                    print(error)
-                }
-                print(files)
             } catch {
                 print(error)
             }
@@ -261,25 +211,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     let fileManager = FileManager.default
                     let myFilePathString = stringofurl + "teecee-coder.jpg"
                     fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
-                    
-                    // var username = NSUserName()
-                    // print(username)
-                    func openPhotos(photoToOpen: String) {
-                        NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
-                    }
-                    
-                    do {
-                        openPhotos(photoToOpen: stringofurl + "teecee-coder.jpg")
-                    } catch {
-                        print(error)
-                    }
-                    
+                    self.openPhotos(photoToOpen: stringofurl + "teecee-coder.jpg")
                 }}.resume()
         }
     }
+    
+    func openPhotos(photoToOpen: String) {
+        NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
+    }
 
-@IBAction func ExitNow(sender: AnyObject) {
-    NSApplication.shared.terminate(self)
-}
+    @IBAction func ExitNow(sender: AnyObject) {
+        NSApplication.shared.terminate(self)
+    }
+
 }
 
