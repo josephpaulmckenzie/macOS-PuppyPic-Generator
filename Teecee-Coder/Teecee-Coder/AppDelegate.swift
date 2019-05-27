@@ -19,22 +19,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
       
 //        if Reachability.isConnectedToNetwork(){
 //            print("Internet Connection Available!")
-//            // Great we have internet now we can use our api to get the images from our s3 bucket
 //        }else{
 //            print("Internet Connection not Available!")
-//            // Here is we want to pull from our Pictures folder so that we can still show images even if offline
-////            let username = NSUserName()
-////            // print(username)
-////            do {
-////                let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/Teecee/")
-////                let myItem = files.randomElement()
-//////                print(myItem!)
-//////                openPhotos(photoToOpen: "/Users/\(username)/Pictures/Teecee/" +  myItem!)
-////                print(files)
-////            } catch {
-////                print(error)
-////            }
+
 //        }
+        
         let statusBar = NSStatusBar.system
         statusBarItem = statusBar.statusItem(
             withLength: NSStatusItem.squareLength)
@@ -93,14 +82,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                         do {
                             let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/Teecee/")
                             let myItem = files.randomElement()
-            //                print(myItem!)
                             func openPhotos(photoToOpen: String) {
                                 NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
                             }
                             
                             do {
                                 openPhotos(photoToOpen: "/Users/\(username)/Pictures/Teecee/" +  myItem!)
-                                
                             } catch {
                                 print(error)
                             }
@@ -109,26 +96,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                             print(error)
                         }
         }
-        
-        
-        
-//        let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/teecee-pic")
-//        if let usableUrl = url {
-//            let request = URLRequest(url: usableUrl)
-//            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-//                if let data = data {
-//                    if let stringData = String(data: data, encoding: .utf8) {
-//                        let phototoget = stringData.components(separatedBy: ",").randomElement()
-//                        getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
-//                    }
-//                }
-//            })
-//            task.resume()
-//        }
-        
-        
-        
-        
         
         func getPhotos(photoToOpen: String,tempurl: URL) {
            let stringofurl = tempurl.absoluteString.replacingOccurrences(of: "file:", with: "")
@@ -165,22 +132,49 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // print("Fetching Random Teecee Pic")
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                         isDirectory: true)
-        let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/coder-pic")
-        if let usableUrl = url {
-            let request = URLRequest(url: usableUrl)
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-                if let data = data {
-                    if let stringData = String(data: data, encoding: .utf8) {
-                        let phototoget = stringData.components(separatedBy: ",").randomElement()
-                         getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
+        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            // Great we have internet now we can use our api to get the images from our s3 bucket
+            let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/coder-pic")
+            if let usableUrl = url {
+                let request = URLRequest(url: usableUrl)
+                let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+                    if let data = data {
+                        if let stringData = String(data: data, encoding: .utf8) {
+                            let phototoget = stringData.components(separatedBy: ",").randomElement()
+                            getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
+                        }
                     }
+                })
+                task.resume()
+            }
+        }else{
+            print("Internet Connection not Available!")
+            // Here is we want to pull from our Pictures folder so that we can still show images even if offline
+            let username = NSUserName()
+            // print(username)
+            do {
+                let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/Coder/")
+                let myItem = files.randomElement()
+                func openPhotos(photoToOpen: String) {
+                    NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
                 }
-            })
-            task.resume()
+                
+                do {
+                    openPhotos(photoToOpen: "/Users/\(username)/Pictures/Coder/" +  myItem!)
+                } catch {
+                    print(error)
+                }
+                print(files)
+            } catch {
+                print(error)
+            }
         }
+        
         func getPhotos(photoToOpen: String,tempurl: URL) {
             let stringofurl = tempurl.absoluteString.replacingOccurrences(of: "file:", with: "")
-
+            print(stringofurl)
             let photoToOpen = photoToOpen.replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "[", with: "")
             let url2 = URL(string: photoToOpen)
             URLSession.shared.dataTask(with: url2!) { (data, response, error) in
@@ -190,17 +184,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     else { return }
                 DispatchQueue.main.async() { () -> Void in
                     let fileManager = FileManager.default
-                    let myFilePathString = stringofurl + "coder"
+                    let myFilePathString = stringofurl + "coder.jpg"
                     fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
                     
-                    var username = NSUserName()
+                    // var username = NSUserName()
                     // print(username)
                     func openPhotos(photoToOpen: String) {
                         NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
                     }
                     
                     do {
-                        openPhotos(photoToOpen: stringofurl + "coder")
+                        openPhotos(photoToOpen: stringofurl + "coder.jpg")
                     } catch {
                         print(error)
                     }
@@ -213,25 +207,51 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // print("Fetching Random Teecee Pic")
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
                                         isDirectory: true)
-        let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/teecee-coder-pic")
-        if let usableUrl = url {
-            let request = URLRequest(url: usableUrl)
-            let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
-                if let data = data {
-                    if let stringData = String(data: data, encoding: .utf8) {
-                        //                        print(stringData.components(separatedBy: ",").randomElement()!)
-                        let phototoget = stringData.components(separatedBy: ",").randomElement()
-                       getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
+        
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            // Great we have internet now we can use our api to get the images from our s3 bucket
+            let url = URL(string: "https://vew5aom1hl.execute-api.us-east-1.amazonaws.com/dev/teecee-coder-pic")
+            if let usableUrl = url {
+                let request = URLRequest(url: usableUrl)
+                let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, response, error) in
+                    if let data = data {
+                        if let stringData = String(data: data, encoding: .utf8) {
+                            let phototoget = stringData.components(separatedBy: ",").randomElement()
+                            getPhotos(photoToOpen: phototoget!, tempurl: temporaryDirectoryURL)
+                        }
                     }
+                })
+                task.resume()
+            }
+        }else{
+            print("Internet Connection not Available!")
+            // Here is we want to pull from our Pictures folder so that we can still show images even if offline
+            let username = NSUserName()
+            // print(username)
+            do {
+                let files = try FileManager.default.contentsOfDirectory(atPath: "/Users/\(username)/Pictures/teecee-coder/")
+                let myItem = files.randomElement()
+                func openPhotos(photoToOpen: String) {
+                    NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
                 }
-            })
-            task.resume()
+                
+                do {
+                    openPhotos(photoToOpen: "/Users/\(username)/Pictures/teecee-coder/" +  myItem!)
+                } catch {
+                    print(error)
+                }
+                print(files)
+            } catch {
+                print(error)
+            }
         }
-        func getPhotos(photoToOpen: String, tempurl: URL) {
+        
+        func getPhotos(photoToOpen: String,tempurl: URL) {
             let stringofurl = tempurl.absoluteString.replacingOccurrences(of: "file:", with: "")
+            print(stringofurl)
             let photoToOpen = photoToOpen.replacingOccurrences(of: "\"", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "[", with: "")
             let url2 = URL(string: photoToOpen)
-            print(url2!)
             URLSession.shared.dataTask(with: url2!) { (data, response, error) in
                 guard
                     let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
@@ -242,7 +262,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     let myFilePathString = stringofurl + "teecee-coder.jpg"
                     fileManager.createFile(atPath: myFilePathString, contents: data, attributes: nil)
                     
-                    var username = NSUserName()
+                    // var username = NSUserName()
                     // print(username)
                     func openPhotos(photoToOpen: String) {
                         NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
