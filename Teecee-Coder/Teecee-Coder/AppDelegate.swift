@@ -57,6 +57,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     
     @objc func fetchPuppyPics(_ sender: NSMenuItem) {
+        // Using sender.title we can detrimine what menu option was selected and set the variable accordingly
         print( sender.title)
         let temporaryDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory(),
             isDirectory: true)
@@ -123,7 +124,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 self.openPhotos(photoToOpen: stringofurl + "\(self.puppy).jpg")
             }}.resume()
     }
-}    
+}
     func openPhotos(photoToOpen: String) {
         NSWorkspace.shared.open(URL(fileURLWithPath: photoToOpen ))
     }
